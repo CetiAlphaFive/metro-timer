@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metro Timer</title>
+<meta name="theme-color" content="#14161a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+  :root {
+    --bg: #f4f4f1;
+    --card: #ffffff;
+    --text: #17181b;
+    --muted: #63666d;
+    --line: #e2e2dd;
+    --good: #1f7a3f;
+    --warn: #b45a00;
+    --bad: #b3261e;
+    --accent: #17181b;
+    --red: #bf0d3e;
+    --orange: #ed8b00;
+    --silver: #919d9d;
+    --blue: #009cde;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14161a;
+      --card: #1e2126;
+      --text: #f1f1ee;
+      --muted: #9a9ea6;
+      --line: #2d3138;
+      --good: #4cc27a;
+      --warn: #f2a33a;
+      --bad: #ff6b61;
+      --accent: #f1f1ee;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161a; --card: #1e2126; --text: #f1f1ee; --muted: #9a9ea6; --line: #2d3138;
+    --good: #4cc27a; --warn: #f2a33a; --bad: #ff6b61; --accent: #f1f1ee;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-variant-numeric: tabular-nums;
+    padding: env(safe-area-inset-top) 16px calc(24px + env(safe-area-inset-bottom));
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  header { display: flex; align-items: center; gap: 8px; padding: 12px 0; }
+  .seg { display: flex; flex: 1; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+  .seg button {
+    flex: 1; border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600;
+    padding: 8px 0; border-radius: 7px; cursor: pointer;
+  }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+  .icon-btn {
+    border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 10px;
+    width: 42px; height: 42px; font-size: 20px; cursor: pointer;
+  }
+  .banner { background: var(--card); border-left: 4px solid var(--warn); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-size: 14px; }
+  .banner.err { border-left-color: var(--bad); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .hero .label { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; font-size: 13px; }
+  .hero .big { font-size: 88px; font-weight: 800; line-height: 1; margin: 6px 0 4px; letter-spacing: -.03em; }
+  .hero .big small { font-size: 28px; font-weight: 700; letter-spacing: 0; margin-left: 6px; color: var(--muted); }
+  .hero .big.now { color: var(--good); }
+  .hero .sub { font-size: 15px; }
+  .hero .eta { margin-top: 8px; font-weight: 600; }
+  .hero .hurry { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--warn); font-size: 14px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 0 0 8px; }
+  .hint { color: var(--muted); font-size: 13px; margin: -4px 0 8px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .row:first-of-type { border-top: 0; }
+  .row .main { flex: 1; min-width: 0; }
+  .row .main .t { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .main .d { color: var(--muted); font-size: 13px; }
+  .row .right { text-align: right; font-weight: 700; white-space: nowrap; }
+  .row .right .d { font-weight: 400; color: var(--muted); font-size: 13px; }
+  .row.gone { opacity: .45; }
+  .pill { flex: none; width: 34px; height: 22px; border-radius: 6px; color: #fff; font-size: 11px; font-weight: 800; display: grid; place-items: center; }
+  .pill.RD { background: var(--red); } .pill.OR { background: var(--orange); }
+  .pill.SV { background: var(--silver); } .pill.BL { background: var(--blue); }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; }
+  .tag.tight, .tag.hurry { color: var(--warn); }
+  .tag.comfortable, .tag.ok { color: var(--good); }
+  .tag.est, .tag.gone { color: var(--muted); }
+  .tag.missed { color: var(--bad); }
+  .hustle { color: var(--warn); font-size: 13px; }
+  .empty { color: var(--muted); font-size: 14px; padding: 6px 0; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 4px; }
+  footer .stale { color: var(--bad); font-weight: 700; }
+  footer button { font: inherit; color: inherit; background: none; border: 0; text-decoration: underline; cursor: pointer; }
+  dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text); width: min(480px, calc(100vw - 32px)); padding: 18px; }
+  dialog::backdrop { background: rgba(0,0,0,.5); }
+  dialog h3 { margin: 0 0 4px; }
+  dialog p { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+  dialog label { display: block; font-size: 14px; font-weight: 600; margin: 12px 0 4px; }
+  dialog label span { font-weight: 400; color: var(--muted); }
+  dialog input {
+    width: 100%; font: inherit; padding: 10px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--text);
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+  .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+  .actions button { font: inherit; font-weight: 600; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer; }
+  .actions button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  #keyStatus { font-size: 13px; margin-top: 6px; min-height: 18px; }
+  #keyStatus.err { color: var(--bad); } #keyStatus.ok { color: var(--good); }
+</style>
+</head>
+<body>
+<header>
+  <div class="seg" role="group" aria-label="Direction">
+    <button id="amBtn" aria-pressed="true">To work</button>
+    <button id="pmBtn" aria-pressed="false">Home</button>
+  </div>
+  <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+</header>
+
+<div id="banners"></div>
+
+<section class="card hero" id="hero"></section>
+
+<section class="card">
+  <h2 id="originTitle"></h2>
+  <div id="originList"></div>
+</section>
+
+<section class="card">
+  <h2>Farragut crossing</h2>
+  <p class="hint" id="crossHint"></p>
+  <div id="crossList"></div>
+</section>
+
+<section class="card">
+  <h2 id="xferTitle"></h2>
+  <div id="xferList"></div>
+</section>
+
+<footer id="footer"></footer>
+
+<dialog id="settings">
+  <form method="dialog" id="settingsForm">
+    <h3>Settings</h3>
+    <p>Your WMATA key is stored only on this device. Get one free at developer.wmata.com (Products → Default Tier → Profile → Primary key).</p>
+    <label for="apiKey">WMATA API key</label>
+    <input id="apiKey" name="apiKey" type="password" autocomplete="off" spellcheck="false">
+    <div id="keyStatus"></div>
+    <div class="grid2">
+      <div><label for="homeWalk">Home → Van Ness <span>min</span></label><input id="homeWalk" name="homeWalk" type="number" min="0" max="60" step="1" inputmode="numeric"></div>
+      <div><label for="officeWalk">Mercatus → Va Sq <span>min</span></label><input id="officeWalk" name="officeWalk" type="number" min="0" max="60" step="1" inputmode="numeric"></div>
+      <div><label for="cushion">Spare time <span>min</span></label><input id="cushion" name="cushion" type="number" min="0" max="15" step="1" inputmode="numeric"></div>
+      <div><label for="crossWalk">Farragut walk <span>min</span></label><input id="crossWalk" name="crossWalk" type="number" min="1" max="15" step="1" inputmode="numeric"></div>
+    </div>
+    <div class="actions">
+      <button type="button" id="cancelBtn">Cancel</button>
+      <button type="submit" class="primary" id="saveBtn">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{"Trains":[
+ {"Car": "8", "Destination": "Glenmont", "DestinationCode": "B11", "DestinationName": "Glenmont", "Group": "1", "Line": "RD", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "3"},
+ {"Car": "8", "Destination": "Shady Grv", "DestinationCode": null, "DestinationName": "Shady Grove", "Group": "2", "Line": "RD", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "5"},
+ {"Car": "8", "Destination": "SilvrSpg", "DestinationCode": "B08", "DestinationName": "Silver Spring", "Group": "1", "Line": "RD", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "11"},
+ {"Car": "8", "Destination": "Glenmont", "DestinationCode": "B11", "DestinationName": "Glenmont", "Group": "1", "Line": "RD", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "16"},
+ {"Car": "8", "Destination": "Glenmont", "DestinationCode": "B11", "DestinationName": "Glenmont", "Group": "1", "Line": "RD", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "22"},
+ {"Car": "-", "Destination": "No Passenger", "DestinationCode": null, "DestinationName": "No Passenger", "Group": "2", "Line": "--", "LocationCode": "A06", "LocationName": "Van Ness-UDC", "Min": "7"},
+ {"Car": "8", "Destination": "Glenmont", "DestinationCode": "B11", "DestinationName": "Glenmont", "Group": "1", "Line": "RD", "LocationCode": "A02", "LocationName": "Farragut North", "Min": "BRD"},
+ {"Car": "8", "Destination": "Glenmont", "DestinationCode": "B11", "DestinationName": "Glenmont", "Group": "1", "Line": "RD", "LocationCode": "A02", "LocationName": "Farragut North", "Min": "6"},
+ {"Car": "8", "Destination": "Shady Grv", "DestinationCode": null, "DestinationName": "Shady Grove", "Group": "2", "Line": "RD", "LocationCode": "A02", "LocationName": "Farragut North", "Min": "2"},
+ {"Car": "8", "Destination": "Shady Grv", "DestinationCode": null, "DestinationName": "Shady Grove", "Group": "2", "Line": "RD", "LocationCode": "A02", "LocationName": "Farragut North", "Min": "9"},
+ {"Car": "8", "Destination": "Vienna", "DestinationCode": "K08", "DestinationName": "Vienna", "Group": "2", "Line": "OR", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "4"},
+ {"Car": "8", "Destination": "Ashburn", "DestinationCode": "N12", "DestinationName": "Ashburn", "Group": "2", "Line": "SV", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "9"},
+ {"Car": "6", "Destination": "Franconia", "DestinationCode": "J03", "DestinationName": "Franconia-Springfield", "Group": "2", "Line": "BL", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "7"},
+ {"Car": "8", "Destination": "Vienna", "DestinationCode": "K08", "DestinationName": "Vienna", "Group": "2", "Line": "OR", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "15"},
+ {"Car": "8", "Destination": "NewCrltn", "DestinationCode": null, "DestinationName": "New Carrollton", "Group": "1", "Line": "OR", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "3"},
+ {"Car": "8", "Destination": "Largo", "DestinationCode": "G05", "DestinationName": "Downtown Largo", "Group": "1", "Line": "SV", "LocationCode": "C03", "LocationName": "Farragut West", "Min": "8"},
+ {"Car": "8", "Destination": "Largo", "DestinationCode": "G05", "DestinationName": "Downtown Largo", "Group": "1", "Line": "SV", "LocationCode": "K03", "LocationName": "Virginia Square-GMU", "Min": "2"},
+ {"Car": "8", "Destination": "NewCrltn", "DestinationCode": null, "DestinationName": "New Carrollton", "Group": "1", "Line": "OR", "LocationCode": "K03", "LocationName": "Virginia Square-GMU", "Min": "9"},
+ {"Car": "8", "Destination": "Vienna", "DestinationCode": "K08", "DestinationName": "Vienna", "Group": "2", "Line": "OR", "LocationCode": "K03", "LocationName": "Virginia Square-GMU", "Min": "ARR"},
+ {"Car": "", "Destination": "", "DestinationCode": "", "DestinationName": "", "Group": "1", "Line": "", "LocationCode": "K03", "LocationName": "Virginia Square-GMU", "Min": "---"}
+]}
